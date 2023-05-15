@@ -1,14 +1,22 @@
 # Dataset Dog Server
 Dataset Dog is a data collection application that helps developers collect the function arguments and returned values for unit/integration test case generation.
 
-## Install
+## Runtime
+
+### Docker
+```bash
+docker compose up
+```
+
+### Non-docker
+#### Install
 ```bash
 npm i
 ```
 
 Please make a `.env` file and put the environment variable values in it using `.env.sample` as reference
 
-## Run
+#### Run
 ```bash
 npm run dev
 ```
@@ -19,4 +27,3 @@ npm run dev
 ## TODO
 - Documentation
 - Frontend
-

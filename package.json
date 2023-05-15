@@ -1,0 +1,34 @@
+{
+  "name": "dataset-dog-server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pm2-dev src/index.js",
+    "start": "NODE_ENV=production node src/index.js",
+    "format": "prettier-eslint --write --ignore \"./node_modules/**\" \"./src/**/*.js\""
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "mongoose": "^6.8.0",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-standard": "^1.0.2",
+    "pm2": "^5.1.2",
+    "prettier-eslint": "^13.0.0",
+    "prettier-eslint-cli": "^5.0.1"
+  }
+}

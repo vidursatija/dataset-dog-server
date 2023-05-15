@@ -1,8 +1,18 @@
-## How to deploy
+# Dataset Dog Server
+Dataset Dog is a data collection application that helps developers collect the function arguments and returned values for unit/integration test case generation.
 
-```shell
-gcloud builds submit --tag europe-west1-docker.pkg.dev/projectpal-e70b9/cloud-run-source-deploy/projectzero-production
-# get the SHA of the build
-# replace SHA inside service.yaml
-gcloud run services replace service.yaml
+## Install
+```bash
+npm i
 ```
+
+Please make a `.env` file and put the environment variable values in it using `.env.sample` as reference
+
+## Run
+```bash
+npm run dev
+```
+
+## TODO
+- Dockerfile & docker-compose yml
+- Disable firebase auth and add your own API key based user

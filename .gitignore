@@ -90,3 +90,5 @@ sw.*
 *.swp
 
 google_application_credentials.json
+node_modules
+package-lock.json

@@ -65,7 +65,7 @@ function userAuthenticateMiddleware(firebaseApp) {
       session.startTransaction();
       const ur = new UserRepository(session);
       const or = new OrganizationRepository(session);
-      let thisUser = await ur.getUserByFirebaseId(userToken.uid);
+      let thisUser = await ur.getUserByProviderId(userToken.uid);
       if (thisUser === null) {
         // first time user is sending an API request => make a user
         const userFullName = userToken.name;
@@ -77,8 +77,8 @@ function userAuthenticateMiddleware(firebaseApp) {
         );
         thisUser = await ur.addOrganizationToUser(thisUser.id, thisOrg.id);
       }
-      session.commitTransaction();
-      session.endSession();
+      await session.commitTransaction();
+      await session.endSession();
       req._user = thisUser;
     }
     next();
@@ -94,12 +94,11 @@ function projectAuthenticateMiddleware() {
     // split by :
     const [projectId, projectApiSecret] = base64DecodedIdToken.split(":");
     // if not projectId or projectApiSecret => return 401
-    if (projectId === "" || projectApiSecret === "") {
+    if (!projectId || !projectApiSecret) {
       req._project = null;
     } else {
       const pr = new ProjectRepository(null);
       // find project
-      console.log(projectId, projectApiSecret);
       const project = await pr.getValidatedProject(projectId, projectApiSecret);
       req._project = project;
     }

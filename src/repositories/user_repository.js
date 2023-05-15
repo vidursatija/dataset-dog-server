@@ -9,9 +9,9 @@ class UserRepository extends BaseRepository {
     super(session);
   }
 
-  async createUser(userName, firebaseId) {
+  async createUser(userName, providerId) {
     const userInfo = {
-      firebaseId: firebaseId,
+      providerId: providerId,
       userName: userName,
     };
     const users = await UserModel.insertMany([userInfo], {
@@ -22,10 +22,10 @@ class UserRepository extends BaseRepository {
     return user.toObject();
   }
 
-  async getUserByFirebaseId(firebaseId) {
-    // use UserModel to find user by firebaseId
+  async getUserByProviderId(providerId) {
+    // use UserModel to find user by providerId
     // return user object
-    const user = await UserModel.findOne({ firebaseId: firebaseId }).exec();
+    const user = await UserModel.findOne({ providerId: providerId }).exec();
     if (user === null) {
       return null;
     }

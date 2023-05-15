@@ -15,28 +15,47 @@ function _getBearerTokenFromReq(req) {
   }
 }
 
-async function _getFirebaseTokenFromReq(firebaseApp, req) {
-  // finds authorization header Bearer
+async function _validateIdTokenFromFirebase(idToken, firebaseApp) {
   // calls firebase to authenticate token
   // return claims if valid
   // else null
-  const idToken = _getBearerTokenFromReq(req);
-  if (idToken) {
-    const decodedToken = await firebaseApp
-      .auth()
-      .verifyIdToken(idToken)
-      .catch((_error) => {
-        return null;
-      });
-    return decodedToken;
-  } else {
-    return null;
-  }
+  const decodedToken = await firebaseApp
+    .auth()
+    .verifyIdToken(idToken)
+    .catch((_error) => {
+      return null;
+    });
+  return decodedToken;
 }
 
-function firebaseAuthenticateMiddleware(firebaseApp) {
+async function _validateIdTokenFromLocal(idToken) {
+  // check if idToken is the same as provided in .env
+  // return {name: "root", uid: "root"} as decodedToken
+  if (idToken === process.env.ROOT_API_KEY) {
+    return { name: "root", uid: "root" };
+  }
+  return null;
+}
+
+async function _getTokenFromReq(firebaseApp, req) {
+  const idToken = _getBearerTokenFromReq(req);
+  if (!idToken) {
+    return null;
+  }
+  // if provider is firebase => validate with firebase
+  // else if provider is local => validate with local
+  if (process.env.AUTH_PROVIDER === "firebase") {
+    return await _validateIdTokenFromFirebase(idToken, firebaseApp);
+  }
+  if (process.env.AUTH_PROVIDER === "local") {
+    return await _validateIdTokenFromLocal(idToken);
+  }
+  return null;
+}
+
+function userAuthenticateMiddleware(firebaseApp) {
   return async function _firebaseAuthenticateMiddleware(req, res, next) {
-    const userToken = await _getFirebaseTokenFromReq(firebaseApp, req);
+    const userToken = await _getTokenFromReq(firebaseApp, req);
     req._user = null;
     if (userToken === null || userToken.uid === null) {
       req._user = null;
@@ -88,4 +107,4 @@ function projectAuthenticateMiddleware() {
   };
 }
 
-export { firebaseAuthenticateMiddleware, projectAuthenticateMiddleware };
+export { userAuthenticateMiddleware, projectAuthenticateMiddleware };

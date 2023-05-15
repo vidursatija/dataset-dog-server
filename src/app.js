@@ -1,6 +1,6 @@
 import express, { json, urlencoded } from "express";
 import {
-  firebaseAuthenticateMiddleware,
+  userAuthenticateMiddleware,
   projectAuthenticateMiddleware,
 } from "./middlewares/authorization.js";
 import cookieParser from "cookie-parser";
@@ -44,7 +44,7 @@ app.use(logger(morganLogLevel));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(firebaseAuthenticateMiddleware(FIREBASE_APP));
+app.use(userAuthenticateMiddleware(FIREBASE_APP));
 app.use(projectAuthenticateMiddleware());
 app.use("/api/v1/function_records", functionRecordRouter);
 app.use("/api/v1/organizations", organizationRouter);

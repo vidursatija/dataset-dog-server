@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema(
         default: [],
       },
     ],
-    firebaseId: {
+    providerId: {
       type: String,
       required: true,
       unique: true,
@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema(
       transform: function (doc, ret) {
         ret.id = ret._id.toString();
         delete ret._id;
-        delete ret.firebaseId;
+        delete ret.providerId;
       },
     },
     versionKey: false,

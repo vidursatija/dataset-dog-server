@@ -1,9 +1,12 @@
 import firebaseAdmin from "firebase-admin";
 import fs from "fs";
 
-let firebaseApp;
+let firebaseApp = null;
 
 function setupFirebaseApp() {
+  if (process.env.AUTH_PROVIDER !== "firebase") {
+    return;
+  }
   let serviceAccountJSON = null;
   const GAPP_CRED_FILE =
     process.env.GOOGLE_APPLICATION_CREDENTIALS || process.env.GAPP_CRED_FILE;

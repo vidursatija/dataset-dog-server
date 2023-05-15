@@ -16,3 +16,6 @@ npm run dev
 ## TODO
 - Dockerfile & docker-compose yml
 - Disable firebase auth and add your own API key based user
+- Documentation
+- Frontend
+

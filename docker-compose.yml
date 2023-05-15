@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./google_application_credentials.json:/app/google_application_credentials.json
+    environment:
+      - PORT=3001
+      - MONGODB_USER
+      - MONGODB_PASS
+      - MONGODB_URI
+      - MONGODB_DB
+      - GAPP_CRED_FILE=/app/google_application_credentials.json
+      - AUTH_PROVIDER
+      - ROOT_API_KEY
+    command: "npm run start"

@@ -17,8 +17,6 @@ npm run dev
 - [Python SDK](https://github.com/vidursatija/dataset-dog-python)
 
 ## TODO
-- Dockerfile & docker-compose yml
-- Disable firebase auth and add your own API key based user
 - Documentation
 - Frontend
 

@@ -6,6 +6,7 @@ services:
       - "3001:3001"
     volumes:
       - ./google_application_credentials.json:/app/google_application_credentials.json
+      - ./src/:/app/src/
     environment:
       - PORT=3001
       - MONGODB_USER

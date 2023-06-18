@@ -23,7 +23,3 @@ npm run dev
 
 ## Official SDKs
 - [Python SDK](https://github.com/vidursatija/dataset-dog-python)
-
-## TODO
-- Documentation
-- Frontend

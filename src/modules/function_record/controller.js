@@ -34,4 +34,19 @@ router.post("/", authenticatedProjectRequired, async function (req, res) {
   return res.json({ functionRecord });
 });
 
+// get all function records for this project with pagination
+// router.get("/records/:functionName", authenticatedProjectRequired, async function (req, res) {
+//   const project = req._project;
+//   const page = req.query.page || 1;
+//   const limit = req.query.limit || 10;
+//   // limit to maax 50 records
+//   if (limit > 50) {
+//     limit = 50;
+//   }
+//   const functionName = req.params.functionName;
+//   const frr = new FunctionRecordRepository(null);
+//   functionRecords = await frr.getFunctionRecords(project.id, functionName, page, limit);
+//   return res.json({ functionRecords });
+// });
+
 export default router;
